@@ -71,7 +71,7 @@ const app = {
         const html = this.songList.map((song, index) => {
 
             return ` 
-            <div id="track-box" class=" ${this.curentIndex===index ? 'active atc' : ' ' }">
+            <div id="track-box" class=" ${this.curentIndex===index ? 'active atc' : ' ' }" data-index="${index}">
             <div class="thumb">
               <img src="${song.image}" alt="">
             </div>
@@ -276,6 +276,23 @@ const app = {
         nextBtn.onclick = (e) => {
            _this.nextSong();
         }
+        trackList.onclick = function (e) {
+            const songNode = e.target.closest("#track-box:not(.atc)");
+            console.log(songNode);
+            if (songNode || e.target.closest(".option")) {
+        
+              if (songNode) {
+                _this.curentIndex = Number(songNode.dataset.index);
+                _this.reLoad();
+                _this.renderSongList();
+                _this.scrollToActiveSong();
+              }
+              if (e.target.closest(".option")) {
+              }
+
+            }
+
+          };
 
     },
     start: function () {
